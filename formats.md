@@ -35,7 +35,7 @@ sends directly to mongo.
 ```
 
 
-#### V1 `Practical8601`
+#### `Practical8601`
 ```javascript
 {
   timestamp: "<ISO8601 format with [any] timezone>"
@@ -47,3 +47,16 @@ sends directly to mongo.
 }
 
 ```
+
+#### `SigIntro`
+```javascript
+{
+  timestamp: "<ISO8601 format on Zulu time>"
+  sgv: <alias of bg>
+  direction: <string or enum>
+  device: <string or enum>
+  _sig: "sgv://$schema/$hash"
+}
+
+```
+
