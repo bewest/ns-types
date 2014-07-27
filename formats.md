@@ -34,3 +34,16 @@ sends directly to mongo.
 
 ```
 
+
+#### V1 `Practical8601`
+```javascript
+{
+  timestamp: "<ISO8601 format with [any] timezone>"
+  epoch: <optional, mostly ignored UTC epoch>
+  sgv: <alias of bg>
+  direction: <string or enum>
+  device: <string or enum>
+
+}
+
+```
