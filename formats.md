@@ -106,7 +106,7 @@ var BeeGee2SigIntro = es.pipeline(
 , sgvdata.writable(sgvdata.sync.SandStone)
 , sgvdata.writable(sgvdata.sync.PracticalISO8601)
 , sgvdata.writable(sgvdata.sync.SigIntro)
-;
+) ;
 
 ```
 
