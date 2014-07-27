@@ -17,7 +17,7 @@ Looks like this:
 }
 ```
 
-### `Sandstone` existing mongo upload
+#### `Sandstone` existing mongo upload
 This is what the
 [`uploader`](https://gist.github.com/bewest/e0ff794726f122723282#currently-used)
 sends directly to mongo.
