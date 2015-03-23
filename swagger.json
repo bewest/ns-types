@@ -1,0 +1,367 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "The new Nightscout API",
+        "description": "Move your app forward with the Nightscout API",
+        "version": "0.0.0"
+    },
+    "schemes": [
+        "https"
+    ],
+    "basePath": "/api/v1",
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/entries": {
+            "get": {
+                "summary": "Entries",
+                "description": "The Entries endpoint returns information about the Nightscout entries.",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "description": "Number of entries to return.",
+                        "required": false,
+                        "type": "number"
+                    }
+                ],
+                "tags": [
+                    "Entries"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of entries",
+                        "schema": {
+                            "$ref": "#/definitions/Entries"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Entries"
+                ],
+                "summary": "Add new entries.",
+                "description": "",
+                "operationId": "addEntries",
+                "consumes": [
+                    "application/json",
+                    "text/plain"
+                ],
+                "produces": [
+                    "application/json",
+                    "text/plain"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Entries to be uploaded.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Entries"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Rejected list of entries.  Empty list is success."
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/treatments": {
+            "get": {
+                "summary": "Treatments",
+                "description": "The Entries endpoint returns information about the Nightscout entries.",
+                "tags": [
+                    "Entries"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of treatments",
+                        "schema": {
+                            "$ref": "#/definitions/Treatments"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Treatments"
+                ],
+                "summary": "Add new entries.",
+                "description": "",
+                "operationId": "addTreatments",
+                "consumes": [
+                    "application/json",
+                    "text/plain"
+                ],
+                "produces": [
+                    "application/json",
+                    "text/plain"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Treatments to be uploaded.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Treatments"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Rejected list of entries.  Empty list is success."
+                    },
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/profile": {
+            "get": {
+                "summary": "Treatments",
+                "description": "The Entries endpoint returns information about the Nightscout entries.",
+                "tags": [
+                    "Entries"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of treatments",
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/status": {
+            "get": {
+                "summary": "Status",
+                "description": "Server side status, default settings and capabilities.",
+                "tags": [
+                    "User"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Server capabilities and status.",
+                        "schema": {
+                            "$ref": "#/definitions/Status"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Entry": {
+            "properties": {
+                "date": {
+                    "type": "number",
+                    "description": "Epoch"
+                },
+                "dateString": {
+                    "type": "string",
+                    "description": "dateString, prefer ISO `8601`"
+                },
+                "sgv": {
+                    "type": "string",
+                    "description": "The glucose reading"
+                },
+                "trend": {
+                    "type": "number",
+                    "description": "Enum of direction"
+                },
+                "direction": {
+                    "type": "string",
+                    "description": "Direction of glucose reported by Dexcom."
+                },
+                "noise": {
+                    "type": "number",
+                    "description": "Noise level at time of reading."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "sgv"
+                }
+            }
+        },
+        "Entries": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Entry"
+            }
+        },
+        "Treatment": {
+            "properties": {
+                "enteredBy": {
+                    "type": "string",
+                    "description": "Who entered the treatment."
+                },
+                "eventType": {
+                    "type": "string",
+                    "description": "The type of treatment event."
+                },
+                "glucose": {
+                    "type": "string",
+                    "description": "Current glucose"
+                },
+                "glucoseType": {
+                    "type": "string",
+                    "description": "Method used to obtain glucose."
+                },
+                "carbs": {
+                    "type": "number",
+                    "description": "Number of carbs"
+                },
+                "insulin": {
+                    "type": "number",
+                    "description": "Amount of insulin, if any"
+                },
+                "units": {
+                    "type": "string",
+                    "description": ""
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Moment the treatment was recorded"
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Description/notes of treatment."
+                },
+                "_id": {
+                    "type": "string",
+                    "description": "Internally assigned id"
+                }
+            }
+        },
+        "Treatments": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Treatment"
+            }
+        },
+        "Profile": {
+            "properties": {
+                "sens": {
+                    "type": "integer",
+                    "description": "Internally assigned id"
+                },
+                "dia": {
+                    "type": "integer",
+                    "description": "Internally assigned id"
+                },
+                "carbratio": {
+                    "type": "integer",
+                    "description": "Internally assigned id"
+                },
+                "carbs_hr": {
+                    "type": "integer",
+                    "description": "Internally assigned id"
+                },
+                "_id": {
+                    "type": "string",
+                    "description": "Internally assigned id"
+                }
+            }
+        },
+        "Status": {
+            "properties": {
+                "apiEnabled": {
+                    "type": "boolean",
+                    "description": "Whether or not the REST API is enabled."
+                },
+                "careportalEnabled": {
+                    "type": "boolean",
+                    "description": "Whether or not the careportal is enabled in the API."
+                },
+                "enabledOptions": {
+                    "type": "string",
+                    "description": "Whitespace separated list of enabled features."
+                },
+                "units": {
+                    "type": "string",
+                    "description": "Default units for glucose measurements across the server."
+                },
+                "head": {
+                    "type": "string",
+                    "description": "The git identifier for the running instance of the app."
+                },
+                "version": {
+                    "type": "string",
+                    "description": "The version label of the app."
+                },
+                "thresholds": {
+                    "$ref": "#/definitions/Threshold"
+                }
+            }
+        },
+        "Threshold": {
+            "properties": {
+                "bg_high": {
+                    "type": "integer",
+                    "description": "High BG range."
+                },
+                "bg_target_top": {
+                    "type": "integer",
+                    "description": "Top of target range."
+                },
+                "bg_target_bottom": {
+                    "type": "integer",
+                    "description": "Bottom of target range."
+                },
+                "bg_low": {
+                    "type": "integer",
+                    "description": "Low BG range."
+                }
+            }
+        },
+        "Error": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
